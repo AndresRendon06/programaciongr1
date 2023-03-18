@@ -1,0 +1,161 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm> //Biblioteca para la funcion sort
+
+using namespace std;
+
+//Se  crea la funcion para hallar el numero del medio del arreglo
+int M(int arreglo[],int tamanio) {
+	//se divide en 2 el tamaño del arreglo para hallar el valor del medio
+    int mitad = tamanio / 2;
+return arreglo[mitad];
+}
+
+//Funcion para hallar numeros pares
+void pares(int arreglo[], int tamanio) {
+//Se crea una funcion booleana para definir si hay o no hay numeros pares en la función
+	bool hpares = false;
+    cout << "Los numeros pares en el arreglo son: ";
+    for (int i = 0; i < tamanio; i++) {
+        if (arreglo[i] % 2 == 0) {
+		
+            cout << arreglo[i] << " ";
+            hpares = true; 
+		}
+	}
+	if (!hpares){
+		cout << "No hay numeros pares en el arreglo."; 
+	}
+	cout << endl;
+}
+
+//funcion booleana para definir un numero primo
+bool eprimo(int num) {
+    if (num < 2) {
+        return false;
+    }
+    for (int i = 2; i <= sqrt(num); i++) {
+        if (num % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//funcion para hallar numero primos en el arreglo
+void primos(int arreglo[], int tamanio) {
+//Se crea una funcion booleana para definir si hay o no hay numero primos en la funcion 
+    bool hprimo = false;
+    cout << "Los numeros primos en el arreglo son: ";
+    for (int i = 0; i < tamanio; i++) {
+        if (eprimo(arreglo[i])) {
+            cout << arreglo[i] << " ";
+            hprimo = true;
+        }
+    }
+    if (!hprimo) {
+        cout << "No hay numeros primos en el arreglo.";
+    }
+    cout << endl;
+}
+
+//funcion para hallar el numero mayor en el arreglo
+int emayor(int arreglo[], int tamanio) {
+    int mayor = arreglo[0];
+    for (int i = 1; i < tamanio; i++) {
+        if (arreglo[i] > mayor) {
+            mayor = arreglo[i];
+        }
+    }
+    return mayor;
+}
+
+//Arreglo 
+int main() {
+	
+	
+    int tamanio;
+    	cout << "Ingrese el tamanio del arreglo: ";
+    		cin >> tamanio;
+    			cout << endl;
+
+   
+	//se crea el arreglo
+    int arreglo[tamanio];
+    
+	//Se crea la funcion para seleccionar tipo de llenado
+    int opcion;
+    	cout << "Ingrese la opcion de llenado siendo: 1 = Automatico o 2 = Manual: ";
+    		cin >> opcion;
+    			cout << endl;
+    
+    //Se genera la opcion uno por llenado automatico en un rango de 100 a 200 
+    if (opcion == 1) {
+        for (int i = 0; i < tamanio; i++) {
+            arreglo[i] = rand() % 100 + 100;
+        }
+    //Se genera la opcion dos por llenado manual entre numero de 0 a 99, si ingresa un número fuera del rango indica un error y pide quelo llenen nuevamente 
+    } 
+	else if (opcion == 2) {
+        for (int i = 0; i < tamanio; i++) {
+            cout << "Ingrese el elemento " << i << ": "<< endl;
+            	cin >> arreglo[i];
+        	while (arreglo[i] < 0 || arreglo[i] > 99) {
+            	cout << "Error: el elemento debe estar entre 0 y 99" << endl;
+            	cout << "Ingrese el elemento " << i << ": ";
+                	cin >> arreglo[i];
+        	}
+        }
+    } 
+    
+    //Si el usuario ingresa una opción diferente a las disponibles le indicara error
+	else {
+        cout << "Error: opcion invalida, intente de nuevo" << endl;
+        return 0; 
+    }
+    cout << endl;
+    // Imprimir el arreglo
+    cout << "El arreglo es: "<<endl;
+    for (int i = 0; i < tamanio; i++) {
+        cout << arreglo[i] << " ";
+    }
+    cout << endl;
+    cout << endl;
+    
+    
+//Se imprime el valor de la mitad en pantalla
+int mitad = M(arreglo, tamanio);
+    
+    cout << "El numero en la posicion del medio es: " << mitad << endl << endl;
+    
+//se imprimen numeros pares del arreglo
+pares(arreglo, tamanio);
+	
+	cout << endl; 
+
+//se imprimen numeros primos
+primos(arreglo, tamanio);
+
+	cout << endl;
+
+//Se imprime el numero mayor 
+int mayor = emayor(arreglo, tamanio);
+	
+	cout << "El numero mayor en el arreglo es: " << mayor << endl << endl;
+	
+	
+	
+//Ordenar arreglo de menor a mayor 
+int n = sizeof(arreglo) / sizeof(arreglo[tamanio]);
+
+//sort para ordenar de menor a mayor
+sort(arreglo, arreglo + n);
+
+	cout << "Arreglo ordenado de menor a mayor: " << endl;
+	for(int i = 0; i < n; i++){
+		cout << arreglo[i] << " ";
+	}
+	
+	
+    return 0;
+}
